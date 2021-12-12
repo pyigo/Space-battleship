@@ -17,13 +17,7 @@ function getRndInteger(min, max) {
 //   creating alienship array to contain all 6 ships  
 let alienships = [];
 
-//generte random numbers for each property hull,firepower, accuracy 
-let hull = getRndInteger(3, 6);
-let firepower = getRndInteger(2, 4);
-let accuracy = getRndInteger(0.6, 0.8);
 
-//create alienship1 
-let alienshipOne = new Ship(hull, firepower, accuracy);
 
 //push created ship to aarray
 alienships.push(alienshipOne);
@@ -73,6 +67,18 @@ let alienshipSix = new Ship(hull, firepower, accuracy);
 alienships.push(alienshipSix);
 
 // let's create a function that create and return a alienship
+function createAlienship() {
+    //generte random numbers for each property hull,firepower, accuracy 
+    let hull = getRndInteger(3, 6);
+    let firepower = getRndInteger(2, 4);
+    let accuracy = getRndInteger(0.6, 0.8);
+
+    //create alienship1 
+    let alienship = new Ship(hull, firepower, accuracy);
+
+    return alienship;
+}
+
 
 
 
