@@ -8,13 +8,11 @@ class Ship {
 
     // creating display method to display details of class Ship
     Display() {
-        console.log(`hull:${this.hull}, firepower:${this.firepower}, accuracy:${this.accuracy}`)
+        console.log(`hull:${this.hull}, firepower:${this.firepower}, accuracy:${this.accuracy} \n`)
     }
 }
 // creating uSS HelloWorld battleship
 let ussHelloWorld = new Ship(20, 5, 0.7);
-console.log(`USS Helloworld details:`);
-ussHelloWorld.Display();
 
 // Copied form https://www.w3schools.com/js/js_random.asp
 function getRndInteger(min, max) {
@@ -46,15 +44,56 @@ for (let i = 0; i < 6; i++) {
     alienships.push(alienship);
 }
 
-// alienships[1].Display();
-// alienships[0].Display();
-console.log(`Alienships details`)
-// creating for loop to display object properties
-for (let i = 0; i < alienships.length; i++) {
-    alienships[i].Display();
-}
-
 console.log('********Game********')
+
+/*
+    Game: 
+    make ussHelloWolrd attack each alien from 0 to alienShip.length
+*/
+let i = 0;
+
+console.log(`USS Helloworld details:`);
+ussHelloWorld.Display();
+
+do {
+    // get current alienship 
+    let alienship = alienships[i];
+    console.log(`You are fighting against alienship # ${i + 1} with the following power:`)
+    alienship.Display();
+    /*
+ round: a round is a battle until usshelloworld or the alienship runs out of life
+ */
+    console.log(`********Begin Battle #: ${i + 1}:********`);
+    do {
+        if (ussHelloWorld.accuracy < alienship.accuracy) {
+            ussHelloWorld.hull = ussHelloWorld.hull - alienship.firepower;
+        }
+        else {
+            alienship.hull = alienship.hull - ussHelloWorld.firepower;
+        }
+    } while (ussHelloWorld.hull > 0 && alienship.hull > 0);
+
+    console.log(`USS Helloworld details after battle: `);
+    ussHelloWorld.Display();
+
+    // after a round, find out who is alive 
+    if (ussHelloWorld.hull > 0) {
+        console.log('You win this battle \n');
+    }
+    else {
+        console.log('You lost');
+        console.log('Earth lost');
+        break;
+    }
+    console.log('********End Battle:******** \n');
+
+    // move to next alienship
+    i++;
+} while (i < alienships.length);
+
+if (ussHelloWorld.hull > 0) {
+    console.log('congratulation you saved the Earth')
+}
 
 
 
