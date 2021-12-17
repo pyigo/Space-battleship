@@ -1,4 +1,9 @@
-//batleship class creation
+//batleship class creatio
+const playerStats = document.querySelector('#playerStats');
+
+const nameBox = document.querySelector('#nameBox');
+const enemyStats = document.querySelector('#enemyStats');
+
 class Ship {
     constructor(hull, firepower, accuracy) {
         this.hull = hull
@@ -43,57 +48,65 @@ for (let i = 0; i < 6; i++) {
     let alienship = createAlienship();
     alienships.push(alienship);
 }
-
-console.log('********Game********')
-
 /*
     Game: 
     make ussHelloWolrd attack each alien from 0 to alienShip.length
 */
 let i = 0;
 
-console.log(`USS Helloworld details:`);
-ussHelloWorld.Display();
-
+let choice = "";
 do {
     // get current alienship 
     let alienship = alienships[i];
-    console.log(`You are fighting against alienship # ${i + 1} with the following power:`)
-    alienship.Display();
+
+    nameBox.innerHTML = (`Enemy #${i + 1}`)
+    enemyStats.innerHTML = `Hull: ${alienship.hull} </br>
+                            Firepower: ${alienship.firepower} </br>
+                            Accuracy: ${alienship.accuracy} </br>`
+
+    choice = prompt("Retreat/Attack");
+    console.log('choice ' + choice);
+
     /*
  round: a round is a battle until usshelloworld or the alienship runs out of life
  */
-    console.log(`********Begin Battle #: ${i + 1}:********`);
-    do {
-        if (ussHelloWorld.accuracy < alienship.accuracy) {
-            ussHelloWorld.hull = ussHelloWorld.hull - alienship.firepower;
+    if (choice === 'Attack' || choice === 'attack') {
+        while (ussHelloWorld.hull > 0 && alienship.hull > 0) {
+            if (ussHelloWorld.accuracy < alienship.accuracy) {
+                ussHelloWorld.hull = ussHelloWorld.hull - alienship.firepower;
+            }
+            else {
+                alienship.hull = alienship.hull - ussHelloWorld.firepower;
+            }
         }
-        else {
-            alienship.hull = alienship.hull - ussHelloWorld.firepower;
-        }
-    } while (ussHelloWorld.hull > 0 && alienship.hull > 0);
+    } else {
+        break
+    }
 
-    console.log(`USS Helloworld details after battle: `);
-    ussHelloWorld.Display();
+
+    playerStats.innerHTML = `Hull: ${ussHelloWorld.hull} </br>
+                            Firepower: ${ussHelloWorld.firepower} </br>
+                            Accuracy: ${ussHelloWorld.accuracy} </br>`
 
     // after a round, find out who is alive 
-    if (ussHelloWorld.hull > 0) {
-        console.log('You win this battle \n');
-    }
-    else {
-        console.log('You lost');
-        console.log('Earth lost');
-        break;
-    }
-    console.log('********End Battle:******** \n');
-
+    // if (ussHelloWorld.hull > 0) {
+    //     alert('You win this battle \n');
+    // }
+    // else {
+    //     alert('You lost');
+    //     console.log('Earth lost');
+    //     break;
+    // }
     // move to next alienship
     i++;
-} while (i < alienships.length);
 
-if (ussHelloWorld.hull > 0) {
-    console.log('congratulation you saved the Earth')
-}
+} while (choice !== "Retreat");
+
+// if (ussHelloWorld.hull > 0) {
+//     console.log('congratulation you saved the Earth')
+// }else{
+
+// }
 
 
 
